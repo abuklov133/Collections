@@ -5,6 +5,7 @@
     <scanScope>JavaOnlyWithTests</scanScope>
     <suppressErrors>true</suppressErrors>
     <copyLibs>true</copyLibs>
+    <scanBeforeCheckin>true</scanBeforeCheckin>
     <option name="thirdPartyClasspath" />
     <option name="activeLocationIds" />
     <option name="locations">
