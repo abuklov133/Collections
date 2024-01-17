@@ -14,9 +14,7 @@ public class CarArrayList implements CarList {
 
     @Override
     public void add(Car car) {
-        if (size >= array.length) {
-            array = Arrays.copyOf(array, array.length * 2);
-        }
+        increaseArray();
         array[size] = car;
         size++;
     }
@@ -24,7 +22,7 @@ public class CarArrayList implements CarList {
     @Override
     public boolean remove(Car car) {
         for (int i = 0; i < size; i++) {
-            if (array[i].equals(car) ) {
+            if (array[i].equals(car)) {
                 return removeAt(i);
             }
         }
@@ -46,6 +44,16 @@ public class CarArrayList implements CarList {
         return size;
     }
 
+    // @Override
+    public void add(Car car, int index) {
+        increaseArray();
+        for (int i = size - 1; i > index; i--) {
+            array[i] = array[i - 1];
+        }
+        array[index] = car;
+        size++;
+    }
+
     @Override
     public void clear() {
         array = new Car[10];
@@ -55,6 +63,28 @@ public class CarArrayList implements CarList {
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
+        }
+    }
+
+    private void increaseArray() {
+        if (size >= array.length) {
+            array = Arrays.copyOf(array, array.length * 2);
+        }
+    }
+
+    public static void main(String[] args) {
+        CarArrayList carArrayList = new CarArrayList();
+        for (int i = 0; i < carArrayList.array.length; i++) {
+            carArrayList.add(new Car("Brand" + i, i));
+        }
+        for (Car car : carArrayList.array) {
+            System.out.println(car);
+        }
+
+        carArrayList.add(new Car("T", 10), 10);
+
+        for (Car car : carArrayList.array) {
+            System.out.println(car);
         }
     }
 }

@@ -4,6 +4,7 @@ public class Car {
     private String brend;
     private int number;
 
+
     public Car(String brend, int number) {
         this.brend = brend;
         this.number = number;
@@ -15,5 +16,13 @@ public class Car {
 
     public int getNumber() {
         return number;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "brend='" + brend + '\'' +
+                ", number=" + number +
+                '}';
     }
 }

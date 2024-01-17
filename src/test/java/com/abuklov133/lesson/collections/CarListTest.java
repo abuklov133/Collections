@@ -61,8 +61,35 @@ class CarListTest {
      */
 
     @Test
-    public void methodGetReturnedRightValue() {
+    void methodGetReturnedRightValue() {
         Car car = carList.get(0);
         assertEquals("Brand0", car.getBrand());
+    }
+
+    @Test
+    void insertIntoMiddle() {
+        Car car = new Car("Toyota", 15);
+        carList.add(car, 5);
+        Car carFromList = carList.get(5);
+        assertEquals(101, carList.size());
+        assertEquals("Toyota", carFromList.getBrand());
+    }
+
+    @Test
+    void insertIntoFirstPosition() {
+        Car car = new Car("Toyota", 15);
+        carList.add(car, 0);
+        Car carFromList = carList.get(0);
+        assertEquals(101, carList.size());
+        assertEquals("Toyota", carFromList.getBrand());
+    }
+
+    @Test
+    void insertIntoLastPosition() {
+        Car car = new Car("Toyota", 15);
+        carList.add(car, 100);
+        Car carFromList = carList.get(100);
+        assertEquals(101, carList.size());
+        assertEquals("Toyota", carFromList.getBrand());
     }
 }
