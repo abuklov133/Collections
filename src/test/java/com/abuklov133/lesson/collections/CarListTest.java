@@ -1,7 +1,9 @@
 package com.abuklov133.lesson.collections;
 
 
-import org.assertj.core.api.Assertions;
+//import org.assertj.core.api.Assertions;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ class CarListTest {
 
     @BeforeEach
     void setUp() {
-        carList = new CarArrayList();
+        carList = new CarLinkedList();
         for (int i = 0; i < 100; i++) {
             carList.add(new Car("Brand" + i, i));
         }
@@ -22,48 +24,52 @@ class CarListTest {
 
     @Test
     void whenAdded100ElementsThenSizeMustBe100() {
-        assertEquals(100, carList.size());
+        Assertions.assertSame(100, carList.size());
     }
 
     @Test
     void whenElementRemovedByIndexThenSizeMustBeDecreased() {
-        assertTrue(carList.removeAt(5));
-        assertEquals(99, carList.size());
+        Assertions.assertTrue(carList.removeAt(5));
+        assertSame(99, carList.size());
     }
 
     @Test
     void whenElementRemovedThenSizeMustBeDecreased() {
-        Car car = new Car("Toyta", 15);
+        Car car = new Car("Toyota", 15);
         carList.add(car);
-        Assertions.assertThat(101).isEqualTo(carList.size());
+        Assertions.assertSame(101, carList.size());
         assertTrue(carList.remove(car));
-        assertEquals(100, carList.size());
+        Assertions.assertSame(100, carList.size());
 
     }
 
     @Test
     void whenNonExistentElementRemovedThenReturnFalse() {
-        Car car = new Car("Toyta", 15);
-        Assertions.assertThat(100).isEqualTo(carList.size());
-        assertTrue(carList.remove(car));
-        assertEquals(100, carList.size());
+        Car car = new Car("Toyota", 15);
+        Assertions.assertSame(100, carList.size());
+        Assertions.assertFalse(carList.remove(car));
+        Assertions.assertSame(100, carList.size());
     }
 
     @Test
     void whenListClearedThanSizeMustBeNull() {
         carList.clear();
-        assertEquals(0, carList.size());
+        Assertions.assertSame(0, carList.size());
     }
 
-    /*    @Test
-     *  void whenIndexOutOfBoundsThenThrownException() {
-     * }
-     */
+    @Test
+    void whenIndexOutOfBoundsThenThrownException() {
+        Car car = new Car("T-34", 110);
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () ->
+                carList.add(car, 102));
+
+    }
+
 
     @Test
     void methodGetReturnedRightValue() {
         Car car = carList.get(0);
-        assertEquals("Brand0", car.getBrand());
+        Assertions.assertEquals("Brand0", car.getBrand());
     }
 
     @Test
@@ -71,8 +77,8 @@ class CarListTest {
         Car car = new Car("Toyota", 15);
         carList.add(car, 5);
         Car carFromList = carList.get(5);
-        assertEquals(101, carList.size());
-        assertEquals("Toyota", carFromList.getBrand());
+        Assertions.assertSame(101, carList.size());
+        Assertions.assertEquals("Toyota", carFromList.getBrand());
     }
 
     @Test
@@ -80,8 +86,8 @@ class CarListTest {
         Car car = new Car("Toyota", 15);
         carList.add(car, 0);
         Car carFromList = carList.get(0);
-        assertEquals(101, carList.size());
-        assertEquals("Toyota", carFromList.getBrand());
+        Assertions.assertSame(101, carList.size());
+        Assertions.assertEquals("Toyota", carFromList.getBrand());
     }
 
     @Test
@@ -89,7 +95,7 @@ class CarListTest {
         Car car = new Car("Toyota", 15);
         carList.add(car, 100);
         Car carFromList = carList.get(100);
-        assertEquals(101, carList.size());
-        assertEquals("Toyota", carFromList.getBrand());
+        Assertions.assertSame(101, carList.size());
+        Assertions.assertEquals("Toyota", carFromList.getBrand());
     }
 }
