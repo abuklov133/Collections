@@ -19,6 +19,13 @@ class CarSetTest {
     }
 
     @Test
+    void contains() {
+        Assertions.assertTrue(carSet.contains(new Car("BMW20", 20)));
+        Assertions.assertFalse(carSet.contains(new Car("Brand", 150)));
+    }
+
+
+    @Test
     void WhenAddTheSameElementTheSizeDoesNotIncrease() {
         Assertions.assertSame(100, carSet.size());
         Assertions.assertFalse(carSet.add(new Car("BMW1", 1)));

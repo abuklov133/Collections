@@ -21,6 +21,12 @@ class CarListTest {
         }
     }
 
+    @Test
+    void contains() {
+        Assertions.assertTrue(carList.contains(new Car("Brand20", 20)));
+        Assertions.assertFalse(carList.contains(new Car("Brand", 150)));
+    }
+
 
     @Test
     void whenAdded100ElementsThenSizeMustBe100() {

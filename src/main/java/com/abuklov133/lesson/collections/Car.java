@@ -3,17 +3,17 @@ package com.abuklov133.lesson.collections;
 import java.util.Objects;
 
 public class Car {
-    private String brend;
+    private String brand;
     private int number;
 
 
     public Car(String brend, int number) {
-        this.brend = brend;
+        this.brand = brend;
         this.number = number;
     }
 
     public String getBrand() {
-        return brend;
+        return brand;
     }
 
     public int getNumber() {
@@ -23,7 +23,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "brend='" + brend + '\'' +
+                "brend='" + brand + '\'' +
                 ", number=" + number +
                 '}';
     }
@@ -37,11 +37,11 @@ public class Car {
             return false;
         }
         Car car = (Car) o;
-        return number == car.number && Objects.equals(brend, car.brend);
+        return number == car.number && Objects.equals(brand, car.brand);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brend, number);
+        return Objects.hash(brand, number);
     }
 }

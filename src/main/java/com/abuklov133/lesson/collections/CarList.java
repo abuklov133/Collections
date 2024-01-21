@@ -1,9 +1,9 @@
 package com.abuklov133.lesson.collections;
 
-public interface CarList {
+public interface CarList extends CarCollection{
     Car get(int index);
-    void add(Car car);
-    void add(Car car, int index);
+    boolean add(Car car);
+    boolean add(Car car, int index);
     boolean remove(Car car);
     boolean removeAt(int index);
     int size();

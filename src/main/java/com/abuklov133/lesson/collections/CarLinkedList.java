@@ -2,8 +2,8 @@ package com.abuklov133.lesson.collections;
 
 public class CarLinkedList implements CarList {
 
-    private Nod first;
-    private Nod last;
+    private Node first;
+    private Node last;
     private int size = 0;
 
     @Override
@@ -11,55 +11,54 @@ public class CarLinkedList implements CarList {
         return getNod(index).value;
     }
 
+
     @Override
-    public void add(Car car) {
+    public boolean add(Car car) {
         if (size == 0) {
-            first = new Nod(null, car, null);
+            first = new Node(null, car, null);
             last = first;
         } else {
-            Nod secondLast = last;
-            last = new Nod(secondLast, car, null);
+            Node secondLast = last;
+            last = new Node(secondLast, car, null);
             secondLast.next = last;
         }
         size++;
+        return true;
     }
 
     @Override
-    public void add(Car car, int index) {
+    public boolean add(Car car, int index) {
         checkIndex(index);
         if (index == size) {
-            add(car);
-            return;
+            return add(car);
         }
-        Nod nodNext = getNod(index);
-        Nod nodPrevious = nodNext.previous;
-        Nod newNod = new Nod(nodPrevious, car, nodNext);
-        nodNext.previous = newNod;
+        Node nodNext = getNod(index);
+        Node nodPrevious = nodNext.previous;
+        Node newNode = new Node(nodPrevious, car, nodNext);
+        nodNext.previous = newNode;
         if (nodPrevious != null) {
-            nodPrevious.next = newNod;
+            nodPrevious.next = newNode;
         } else {
-            first = newNod;
+            first = newNode;
         }
         size++;
+        return true;
     }
 
     @Override
     public boolean remove(Car car) {
-        Nod nod = first;
-        for (int i = 0; i < size; i++) {
-            if (nod.value.equals(car)) {
-                return removeAt(i);
-            }
-            nod = nod.next;
+        int index = findIndex(car);
+        if (index != -1) {
+            return removeAt(index);
         }
         return false;
     }
 
     @Override
     public boolean removeAt(int index) {
-        Nod nod = getNod(index);
-        Nod nodPrevious = nod.previous;
-        Nod nodNext = nod.next;
+        Node node = getNod(index);
+        Node nodPrevious = node.previous;
+        Node nodNext = node.next;
         if (nodNext != null) {
             nodNext.previous = nodPrevious;
         } else {
@@ -75,6 +74,11 @@ public class CarLinkedList implements CarList {
     }
 
     @Override
+    public boolean contains(Car car) {
+    return findIndex(car) != -1;
+    }
+
+    @Override
     public int size() {
         return size;
     }
@@ -86,13 +90,13 @@ public class CarLinkedList implements CarList {
         size = 0;
     }
 
-    private Nod getNod(int index) {
+    private Node getNod(int index) {
         checkIndex(index);
-        Nod nod = first;
+        Node node = first;
         for (int i = 0; i < index; i++) {
-            nod = nod.next;
+            node = node.next;
         }
-        return nod;
+        return node;
     }
 
     private void checkIndex(int index) {
@@ -101,12 +105,23 @@ public class CarLinkedList implements CarList {
         }
     }
 
-    private static class Nod {
-        private Nod previous;
-        private Car value;
-        private Nod next;
+    private int findIndex(Car car) {
+        Node node = first;
+        for (int i = 0; i < size; i++) {
+            if (node.value.equals(car)) {
+                return i;
+            }
+            node = node.next;
+        }
+        return -1;
+    }
 
-        public Nod(Nod previous, Car value, Nod next) {
+    private static class Node {
+        private Node previous;
+        private Car value;
+        private Node next;
+
+        public Node(Node previous, Car value, Node next) {
             this.previous = previous;
             this.value = value;
             this.next = next;
