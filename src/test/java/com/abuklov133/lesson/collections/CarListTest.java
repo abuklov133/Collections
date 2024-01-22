@@ -104,4 +104,8 @@ class CarListTest {
         Assertions.assertSame(101, carList.size());
         Assertions.assertEquals("Toyota", carFromList.getBrand());
     }
+    @Test
+    void testForeach() {
+        Assertions.assertSame(100, carList.size());
+    }
 }

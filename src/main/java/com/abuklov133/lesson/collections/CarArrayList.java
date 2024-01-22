@@ -1,6 +1,7 @@
 package com.abuklov133.lesson.collections;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class CarArrayList implements CarList {
     private Car[] array = new Car[10];
@@ -88,16 +89,21 @@ public class CarArrayList implements CarList {
         }
     }
 
-    public static void main(String[] args) {
-        CarArrayList carArrayList = new CarArrayList();
-        for (int i = 0; i < carArrayList.array.length; i++) {
-            carArrayList.add(new Car("Brand" + i, i));
-        }
 
-        carArrayList.add(new Car("T", 10), 10);
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+            int index = 0;
 
-        for (Car car : carArrayList.array) {
-            System.out.println(car);
-        }
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Car next() {
+                return array[index++];
+            }
+        };
     }
 }

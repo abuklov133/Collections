@@ -11,7 +11,7 @@ class CarCollectionTest {
 
     @BeforeEach
     void setUp() {
-        carCollection = new CarArrayList();
+        carCollection = new CarHashSet();
         for (int i = 0; i < 100; i++) {
             carCollection.add(new Car("Brand" + i, i));
         }
@@ -23,4 +23,13 @@ class CarCollectionTest {
         Car carFromCollection = new Car("Brand10", 10);
         Assertions.assertTrue(carCollection.contains(carFromCollection));
     }
-}
+
+    @Test
+    void testForeach() {
+        int index = 0;
+            for (Car car : carCollection) {
+                index++;
+            }
+            Assertions.assertSame(carCollection.size(), index);
+        }
+    }
